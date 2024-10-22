@@ -1,0 +1,59 @@
+/**
+ * // This is MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * interface MountainArray {
+ *     public int get(int index) {}
+ *     public int length() {}
+ * }
+ */
+ 
+class Solution {
+    public int findInMountainArray(int t, MountainArray nums) {
+        int n=nums.length();
+        int st=0;
+        int end=n-1;
+        int idx=-1;
+        while(st<end){
+            int mid=st+(end-st)/2;
+            if(nums.get(mid)<nums.get(mid+1)){
+                st=mid+1;
+            }else{
+                end=mid;
+            }
+        }
+        idx=st;
+        int x=helper(t,nums,0,idx);
+        if(x==-1){
+            return helper1(t,nums,idx,n-1);
+        }
+        return x;
+    }
+    public int helper1(int t,MountainArray nums,int st,int end){
+        while(st<=end){
+            int mid=st+(end-st)/2;
+            if(nums.get(mid)==t){
+                return mid;
+            }
+            if(nums.get(mid)>t){
+                st=mid+1;
+            }else{
+                end=mid-1;
+            }
+        }
+        return -1;
+    }
+    public int helper(int t,MountainArray nums,int st,int end){
+        while(st<=end){
+            int mid=st+(end-st)/2;
+            if(nums.get(mid)==t){
+                return mid;
+            }
+            if(nums.get(mid)>t){
+                end=mid-1;
+            }else{
+                st=mid+1;
+            }
+        }
+        return -1;
+    }
+}
