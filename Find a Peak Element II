@@ -1,0 +1,30 @@
+class Solution {
+    public int[] findPeakGrid(int[][] a) {
+        for(int i=0;i<a.length;i++){
+            for(int j=0;j<a[0].length;j++){
+                int left=-1;
+                int right=-1;
+                int up=-1;
+                int down=-1;
+                if(j>0){
+                    left=a[i][j-1];
+                }
+                if(i>0){
+                    up=a[i-1][j];
+                }
+                if((i+1)<a.length){
+                    down=a[i+1][j];
+                }
+                if((j+1)<a[0].length){
+                    right=a[i][j+1];
+                }
+
+                int x=a[i][j];
+                if(x>left && x>right && x>up && x>down){
+                    return new int[]{i,j};
+                }
+            }
+        }
+        return new int[]{-1,-1};
+    }
+}
