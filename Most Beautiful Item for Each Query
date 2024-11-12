@@ -1,0 +1,36 @@
+class Solution {
+    public int[] maximumBeauty(int[][] items, int[] queries) {
+        Arrays.sort(items,(a,b)-> a[0]==b[0]?b[1]-a[1]:a[0]-b[0]);
+        int[] max=new int[items.length];
+        int max1=0;
+        for(int i=0;i<items.length;i++){
+            max1=Math.max(max1,items[i][1]);
+            max[i]=max1;
+        }
+        for(int i=0;i<queries.length;i++){
+            int itm=queries[i];
+            int idx=helper(items,itm);
+            if(idx!=-1){
+                queries[i]=max[idx];
+            }else{
+                queries[i]=0;
+            }
+        }
+        return queries;
+    }
+    public int helper(int[][] a,int t){
+        int st=0;
+        int end=a.length-1;
+        int idx=-1;
+        while(st<=end){
+            int mid=st+(end-st)/2;
+            if(a[mid][0]<=t){
+                idx=mid;
+                st=mid+1;
+            }else{
+                end=mid-1;
+            }
+        }
+        return idx;
+    }
+}
